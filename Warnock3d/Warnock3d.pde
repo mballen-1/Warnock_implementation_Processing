@@ -75,6 +75,17 @@ void setup() {
   auxScene1.setRadius(400);
   auxScene1.showAll();
   
+  auxCanvas2 = createGraphics(w/2, h/2, P3D);
+  // Note that we pass the upper left corner coordinates where the scene
+  // is to be drawn (see drawing code below) to its constructor.
+  auxScene2 = new Scene(this, auxCanvas2, w/2, h/2);
+  auxScene2.camera().setType(Camera.Type.ORTHOGRAPHIC);
+  auxScene2.setAxesVisualHint(true);
+  auxScene2.setGridVisualHint(true);
+  auxScene2.setRadius(400);
+  auxScene2.showAll();
+  
+  
  
   
   
@@ -152,6 +163,12 @@ void draw() {
   auxiliarDrawing(auxScene1);
   auxScene1.endDraw();
   auxScene1.display();
+  
+  auxScene2.beginDraw();
+  auxiliarDrawing(auxScene2);
+  auxScene2.endDraw();
+  auxScene2.display();
+  
 }
 
 void keyPressed() {
