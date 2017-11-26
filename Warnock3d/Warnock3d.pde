@@ -16,36 +16,38 @@ import remixlab.proscene.*;
 import remixlab.dandelion.core.*;
 import remixlab.dandelion.geom.*;
 
-Scene scene, auxScene;
-PGraphics canvas, auxCanvas;
+Scene scene, auxScene1, auxScene2;
+PGraphics canvas, auxCanvas1, auxCanvas2;
+
 StdCamera stdCam;
 Camera origCam;
-boolean stop = false;
+
+boolean stop = false;             // When to stop the scene and the random function
 int triangleAmount = 5;
-float x, y, x1, y1, x2, y2;
-int g_red, g_green, g_blue ;
+int g_red1, g_green1, g_blue1;
+int g_red2, g_green2, g_blue2;
+int g_red3, g_green3, g_blue3;
+int g_red4, g_green4, g_blue4;
+int g_red5, g_green5, g_blue5;
 
 ArrayList<Integer> random_values;
 
 int w = 1280;
 int h = 760;
 
+
 void settings() {
-  size(w, h, P3D);
-  
-  
-  
+  size(w, h, P3D); 
   random_values = new ArrayList<Integer>();
   for (int i = 0; i< 300; ++i){
-    random_values.add((int)random(-100, 100));  
+    random_values.add((int)random(-255, 255));  // Set random values for triangles vertex
   }
 }
 
-void newColor(){
-  g_red = (int)random(0, 255);
-  g_green = (int)random(0, 255);
-  g_blue = (int)random(0, 255);
-  
+void newColor(){//sets new color value for a triangle
+  g_red1 = (int)random(0, 255);
+  g_green1 = (int)random(0, 255);
+  g_blue1 = (int)random(0, 255);  
 }
 
 void setup() {
@@ -56,22 +58,27 @@ void setup() {
   stdCam = new StdCamera(scene);
   scene.setCamera(stdCam);
 
-  scene.setRadius(200);
+  scene.setRadius(500);
   scene.showAll();
 
   // enable computation of the frustum planes equations (disabled by default)
   scene.enableBoundaryEquations();
   scene.setGridVisualHint(true);
 
-  auxCanvas = createGraphics(w, h/2, P3D);
+  auxCanvas1 = createGraphics(w/2, h/2, P3D);
   // Note that we pass the upper left corner coordinates where the scene
   // is to be drawn (see drawing code below) to its constructor.
-  auxScene = new Scene(this, auxCanvas, 0, h/2);
-  auxScene.camera().setType(Camera.Type.ORTHOGRAPHIC);
-  auxScene.setAxesVisualHint(false);
-  auxScene.setGridVisualHint(false);
-  auxScene.setRadius(400);
-  auxScene.showAll();
+  auxScene1 = new Scene(this, auxCanvas1, 0, h/2);
+  auxScene1.camera().setType(Camera.Type.ORTHOGRAPHIC);
+  auxScene1.setAxesVisualHint(true);
+  auxScene1.setGridVisualHint(true);
+  auxScene1.setRadius(400);
+  auxScene1.showAll();
+  
+ 
+  
+  
+  
   noLoop();
 }
 
@@ -83,16 +90,15 @@ void mainDrawing(Scene s) {
   // the main viewer camera is used to cull the sphere object against its frustum
   switch (scene.ballVisibility(new Vec(0, 0, 0), scene.radius()*0.6f)) {
   case VISIBLE:
-    p.fill(random(255), random(255), random(255));
+    p.fill(random(255), random(255), random(255));   
     
-
     for(int i=0 ; i< triangleAmount; i++){
       //settings();
       p.stroke(255);
       p.rotateX(PI/2);
       p.rotateZ(-PI/6);
       newColor();
-      p.fill(g_red, g_green, g_blue);
+      p.fill(random_values.get((int)random(0,300)), random_values.get((int)random(0,300)), random_values.get((int)random(0,300)));
       p.beginShape();
         p.vertex(random_values.get(0), random_values.get(1), random_values.get(2));
         p.vertex( random_values.get(3), random_values.get(4), random_values.get(5));
@@ -111,7 +117,7 @@ void mainDrawing(Scene s) {
       p.stroke(255);
       p.rotateX(PI/2);
       p.rotateZ(-PI/6);
-      p.fill(g_red, g_green, g_blue);
+      p.fill(random_values.get((int)random(0,300)), random_values.get((int)random(0,300)), random_values.get((int)random(0,300)));
       p.beginShape();
         p.vertex(random_values.get(0), random_values.get(1), random_values.get(2));
         p.vertex( random_values.get(3), random_values.get(4), random_values.get(5));
@@ -137,14 +143,15 @@ void draw() {
   
   
   scene.beginDraw();
+  
   mainDrawing(scene);
   scene.endDraw();
   scene.display();
 
-  auxScene.beginDraw();
-  auxiliarDrawing(auxScene);
-  auxScene.endDraw();
-  auxScene.display();
+  auxScene1.beginDraw();
+  auxiliarDrawing(auxScene1);
+  auxScene1.endDraw();
+  auxScene1.display();
 }
 
 void keyPressed() {
@@ -165,7 +172,7 @@ void keyPressed() {
     loop();
     }
     if (key == 'r' || key == 'R') {
-        
+        setup();
     }
     
     
