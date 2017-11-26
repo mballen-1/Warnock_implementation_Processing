@@ -6,12 +6,16 @@ If the container (3d space to evaluate) is traversed by one plane(Triangle) it w
 
 # How do I use it ?
   ## Prerequisite: 
-     #### Processing
-     #### Proscene library by J.P Charalambos
+  #### Processing
+  #### Proscene library by J.P Charalambos installed.
                   
   ### 1. Clone or download this repository.
   ### 2. Go over the Warnock3d directory
   ### 3. Open Warnock3d.pde file and run it.
+  
+# Interesting list of lectures!
+  ## http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.298.9405&rep=rep1&type=pdf
+  ## http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.76.2039&rep=rep1&type=pdf
 
 # Contact us
 Developed by Miguel Ballen(migaballengal@unal.edu.co) and Camilo Neiva(jcneivaa@unal.edu.co). 
