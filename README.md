@@ -6,12 +6,12 @@ If the container is traversed by one plane(Triangle) it will have the color of t
 
 # How do I use it ?
   ## Prerequisite: 
-                  ### Processing
-                  ### Proscene library by J.P Charalambos
+     #### Processing
+     #### Proscene library by J.P Charalambos
                   
-  ## 1. Clone or download this repository.
-  ## 2. Go over the Warnock3d directory
-  ## 3. Open Warnock3d.pde file and run it.
+  ### 1. Clone or download this repository.
+  ### 2. Go over the Warnock3d directory
+  ### 3. Open Warnock3d.pde file and run it.
 
 # Contact us
 Developed by Miguel Ballen(migaballengal@unal.edu.co) and Camilo Neiva(jcneivaa@unal.edu.co). 
