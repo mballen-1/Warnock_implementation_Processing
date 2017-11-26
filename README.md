@@ -6,8 +6,8 @@ If the container (3d space to evaluate) is traversed by one plane(Triangle) it w
 
 # How do I use it ?
   ## Prerequisite: 
-  #### Processing
-  #### Proscene library by J.P Charalambos installed.
+    - Processing
+    - Proscene library by J.P Charalambos installed.
                   
   ### 1. Clone or download this repository.
   ### 2. Go over the Warnock3d directory
