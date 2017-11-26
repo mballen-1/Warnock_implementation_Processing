@@ -21,18 +21,35 @@ PGraphics canvas, auxCanvas;
 StdCamera stdCam;
 Camera origCam;
 boolean stop = false;
-int triangleAmount = 33;
+int triangleAmount = 5;
 float x, y, x1, y1, x2, y2;
+int g_red, g_green, g_blue ;
 
+ArrayList<Integer> random_values;
 
-int w = 800;
-int h = 600;
+int w = 1280;
+int h = 760;
 
 void settings() {
   size(w, h, P3D);
+  
+  
+  
+  random_values = new ArrayList<Integer>();
+  for (int i = 0; i< 300; ++i){
+    random_values.add((int)random(-100, 100));  
+  }
+}
+
+void newColor(){
+  g_red = (int)random(0, 255);
+  g_green = (int)random(0, 255);
+  g_blue = (int)random(0, 255);
+  
 }
 
 void setup() {
+   
   canvas = createGraphics(w, h/2, P3D);
   scene = new Scene(this, canvas);
 
@@ -68,45 +85,39 @@ void mainDrawing(Scene s) {
   case VISIBLE:
     p.fill(random(255), random(255), random(255));
     
-    /*
-    p.beginShape(TRIANGLE);
-      p.vertex(random(-255, 255),random(-255, 255),random(-255, 255));
-      p.vertex(random(-255, 255),random(-255, 255),random(-255, 255));
-      p.vertex(random(-255, 255),random(-255, 255),random(-255, 255));
-    p.endShape();
-   */
-    //p.sphere(scene.radius()*0.6f);
-   
-     p.background(0);
 
-    //p.translate(width/2, height/2, 0);
-    p.stroke(255);
-    p.rotateX(PI/2);
-    p.rotateZ(-PI/6);
-    p.noFill();
-    p.beginShape();
-      p.vertex(-100, -100, -100);
-      p.vertex( 100, -100, -100);
-      p.vertex(   0,    0,  100);
-
-      p.vertex( 100, -100, -100);
-      p.vertex( 100,  100, -100);
-      p.vertex(   0,    0,  100);
-
-      p.vertex( 100, 100, -100);
-      p.vertex(-100, 100, -100);
-      p.vertex(   0,   0,  100);
-
-      p.vertex(-100,  100, -100);
-      p.vertex(-100, -100, -100);
-      p.vertex(   0,    0,  100);
-    p.endShape();
-
-   
+    for(int i=0 ; i< triangleAmount; i++){
+      //settings();
+      p.stroke(255);
+      p.rotateX(PI/2);
+      p.rotateZ(-PI/6);
+      newColor();
+      p.fill(g_red, g_green, g_blue);
+      p.beginShape();
+        p.vertex(random_values.get(0), random_values.get(1), random_values.get(2));
+        p.vertex( random_values.get(3), random_values.get(4), random_values.get(5));
+        p.vertex(   random_values.get(6),    random_values.get(7),  random_values.get(8));
+      p.endShape();
+    }
     break;
+  
+  
   case SEMIVISIBLE:
-    p.fill(255, 0, 0);
-    p.sphere(scene.radius()*0.6f);
+    p.fill(random(255), random(255), random(255));
+    
+
+    for(int i=0 ; i< triangleAmount; i++){
+      //settings();
+      p.stroke(255);
+      p.rotateX(PI/2);
+      p.rotateZ(-PI/6);
+      p.fill(g_red, g_green, g_blue);
+      p.beginShape();
+        p.vertex(random_values.get(0), random_values.get(1), random_values.get(2));
+        p.vertex( random_values.get(3), random_values.get(4), random_values.get(5));
+        p.vertex(   random_values.get(6),    random_values.get(7),  random_values.get(8));
+      p.endShape();
+    }
     break;
   case INVISIBLE:
     break;
@@ -123,6 +134,8 @@ void auxiliarDrawing(Scene s) {
 }
 
 void draw() {
+  
+  
   scene.beginDraw();
   mainDrawing(scene);
   scene.endDraw();
@@ -143,14 +156,20 @@ void keyPressed() {
     scene.eyeFrame().setMotionBinding(MouseAgent.WHEEL_ID, "translateZ");
   if ( key == 'v' )
     scene.eyeFrame().setMotionBinding(MouseAgent.WHEEL_ID, "scale");
-   if(key == 's' || key == 'S')
-     stop = !stop;
-      if (stop == false) {
-        noLoop();
-      }
-      if (stop == true) {
-        loop();
-      }
+  if(key == 's' || key == 'S')
+    stop = !stop;
+    if (stop == false) {
+      noLoop();
+    }
+    if (stop == true) {
+    loop();
+    }
+    if (key == 'r' || key == 'R') {
+        
+    }
+    
+    
+    
 }
 
 public class StdCamera extends Camera {
