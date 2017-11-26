@@ -14,8 +14,8 @@ If the container (3d space to evaluate) is traversed by one plane(Triangle) it w
   - III. Open Warnock3d.pde file and run it.
   
 # Interesting list of lectures!
-  -- http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.298.9405&rep=rep1&type=pdf
-  -- http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.76.2039&rep=rep1&type=pdf
+  - http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.298.9405&rep=rep1&type=pdf
+  - http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.76.2039&rep=rep1&type=pdf
 
 # Contact us
 Developed by Miguel Ballen(migaballengal@unal.edu.co) and Camilo Neiva(jcneivaa@unal.edu.co). 
