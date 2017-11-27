@@ -12,7 +12,8 @@ If the container (3d space to evaluate) is traversed by one plane(Triangle) it w
   - I. Clone or download this repository.
   - II. Go over the Warnock3d directory
   - III. Open Warnock3d.pde file and run it.
-    - IIIa. Press 's' or 'S' to enable interaction.
+    - III-a. Press 's' or 'S' to enable interaction.
+	     Press ' ' to take a step over the Warnock algorithm and see changes (Not implemented yet)
   
 ## Interesting list of lectures!
   - SAMET, H. "An overview of quadtrees, octrees, and related hierarchical data structures".  Available at: http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.298.9405&rep=rep1&type=pdf

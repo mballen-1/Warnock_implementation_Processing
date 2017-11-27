@@ -240,3 +240,8 @@ public class StdCamera extends Camera {
     return super.rescalingOrthoFactor();
   }
 }
+
+boolean inside( ){
+  
+  return false;
+}
