@@ -11,7 +11,7 @@
  * Press 't' in the main viewer (the upper one) to toggle the camera kind.
  * Press 'h' to display the key shortcuts and mouse bindings in the console.
  */
-
+import processing.core.*;
 import remixlab.proscene.*;
 import remixlab.dandelion.core.*;
 import remixlab.dandelion.geom.*;
@@ -21,44 +21,50 @@ PGraphics canvas, auxCanvas1, auxCanvas2;
 
 StdCamera stdCam;
 Camera origCam;
+float angle = 0;
 
 boolean stop = false;             // When to stop the scene and the random function
-int triangleAmount = 5;
-int g_red1, g_green1, g_blue1;
-int g_red2, g_green2, g_blue2;
-int g_red3, g_green3, g_blue3;
-int g_red4, g_green4, g_blue4;
-int g_red5, g_green5, g_blue5;
+int triangleAmount = 3;
 
 ArrayList<Integer> random_values;
+ArrayList<Integer> random_colors;
 
 int w = 1280;
 int h = 760;
+Point screenPoint = new Point();
+Vec orig = new Vec();
+Vec dir = new Vec();
+Vec end = new Vec();
+
+Vec pup;
 
 
 void settings() {
   size(w, h, P3D); 
+  
   random_values = new ArrayList<Integer>();
-  for (int i = 0; i< 300; ++i){
-    random_values.add((int)random(-255, 255));  // Set random values for triangles vertex
+  random_colors = new ArrayList<Integer>();
+  
+  for (int i = 0; i< triangleAmount*900; ++i){
+     random_values.add((int)random(-100, 100));  // Set random values for triangles vertex
+     random_colors.add((int)random(0, 255));
   }
 }
 
-void newColor(){//sets new color value for a triangle
-  g_red1 = (int)random(0, 255);
-  g_green1 = (int)random(0, 255);
-  g_blue1 = (int)random(0, 255);  
-}
 
 void setup() {
    
   canvas = createGraphics(w, h/2, P3D);
   scene = new Scene(this, canvas);
 
+  scene.eyeFrame().removeMotionBinding(CENTER);
+  scene.eyeFrame().setClickBinding(LEFT, 1, "zoomOnPixel");
+  scene.eyeFrame().setClickBinding(CENTER, 1, "anchorFromPixel");
+
   stdCam = new StdCamera(scene);
   scene.setCamera(stdCam);
-
-  scene.setRadius(500);
+  scene.setRadius(250);
+  scene.camera().setUpVector(new Vec(1300, 1300,-1300), true);
   scene.showAll();
 
   // enable computation of the frustum planes equations (disabled by default)
@@ -70,26 +76,24 @@ void setup() {
   // is to be drawn (see drawing code below) to its constructor.
   auxScene1 = new Scene(this, auxCanvas1, 0, h/2);
   auxScene1.camera().setType(Camera.Type.ORTHOGRAPHIC);
+  auxScene1.camera().setUpVector(new Vec(0, 0, -255), true);
   auxScene1.setAxesVisualHint(true);
   auxScene1.setGridVisualHint(true);
-  auxScene1.setRadius(400);
+  auxScene1.setRadius(150);
   auxScene1.showAll();
   
   auxCanvas2 = createGraphics(w/2, h/2, P3D);
   // Note that we pass the upper left corner coordinates where the scene
   // is to be drawn (see drawing code below) to its constructor.
   auxScene2 = new Scene(this, auxCanvas2, w/2, h/2);
+  auxScene2.setCamera(stdCam);
   auxScene2.camera().setType(Camera.Type.ORTHOGRAPHIC);
+  auxScene1.camera().setUpVector(new Vec(0, 0, 0), true);  
   auxScene2.setAxesVisualHint(true);
   auxScene2.setGridVisualHint(true);
-  auxScene2.setRadius(400);
+  auxScene2.setRadius(150);
   auxScene2.showAll();
-  
-  
  
-  
-  
-  
   noLoop();
 }
 
@@ -101,34 +105,30 @@ void mainDrawing(Scene s) {
   // the main viewer camera is used to cull the sphere object against its frustum
   switch (scene.ballVisibility(new Vec(0, 0, 0), scene.radius()*0.6f)) {
   case VISIBLE:
-    p.fill(random(255), random(255), random(255));   
     
+      
     for(int i=0 ; i< triangleAmount; i++){
-      //settings();
+      p.fill(random_colors.get(i*10),random_colors.get(i+1*10), random_colors.get(i*12));   //Define color
       p.stroke(255);
       p.rotateX(PI/2);
       p.rotateZ(-PI/6);
-      newColor();
-      p.fill(random_values.get((int)random(0,300)), random_values.get((int)random(0,300)), random_values.get((int)random(0,300)));
+
       p.beginShape();
         p.vertex(random_values.get(0), random_values.get(1), random_values.get(2));
         p.vertex( random_values.get(3), random_values.get(4), random_values.get(5));
-        p.vertex(   random_values.get(6),    random_values.get(7),  random_values.get(8));
+        p.vertex(   random_values.get(6), random_values.get(7),  random_values.get(8));
       p.endShape();
     }
     break;
   
   
   case SEMIVISIBLE:
-    p.fill(random(255), random(255), random(255));
-    
-
     for(int i=0 ; i< triangleAmount; i++){
-      //settings();
+      p.fill(random_colors.get(i*10),random_colors.get(i+1*10), random_colors.get(i*12));   //Define color
       p.stroke(255);
       p.rotateX(PI/2);
       p.rotateZ(-PI/6);
-      p.fill(random_values.get((int)random(0,300)), random_values.get((int)random(0,300)), random_values.get((int)random(0,300)));
+      
       p.beginShape();
         p.vertex(random_values.get(0), random_values.get(1), random_values.get(2));
         p.vertex( random_values.get(3), random_values.get(4), random_values.get(5));
@@ -152,7 +152,8 @@ void auxiliarDrawing(Scene s) {
 
 void draw() {
   
-  
+  //rotateY(angle); 
+  surface.setTitle("Warnock algorithm demostration ");
   scene.beginDraw();
   
   mainDrawing(scene);
@@ -168,6 +169,7 @@ void draw() {
   auxiliarDrawing(auxScene2);
   auxScene2.endDraw();
   auxScene2.display();
+  angle += 0.01;
   
 }
 
@@ -189,7 +191,7 @@ void keyPressed() {
     loop();
     }
     if (key == 'r' || key == 'R') {
-        setup();
+      
     }
     
     
@@ -197,6 +199,7 @@ void keyPressed() {
 }
 
 public class StdCamera extends Camera {
+  
   boolean standard;
 
   public StdCamera(Scene scn) {
@@ -236,5 +239,18 @@ public class StdCamera extends Camera {
     if (isStandard())
       return 1.0f;
     return super.rescalingOrthoFactor();
+  }
+}
+
+
+void mouseClicked() {
+  if (mouseButton == RIGHT) {
+    pup = scene.pointUnderPixel(new Point(mouseX, mouseY));
+    System.out.println("pup: " + pup);
+    if ( pup != null ) {
+      screenPoint.set(mouseX, mouseY);
+      scene.camera().convertClickToLine(screenPoint, orig, dir);        
+      end = Vec.add(orig, Vec.multiply(dir, 1000.0f));
+    }
   }
 }
