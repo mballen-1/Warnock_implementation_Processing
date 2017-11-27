@@ -31,12 +31,8 @@ ArrayList<Integer> random_colors;
 
 int w = 1280;
 int h = 760;
-Point screenPoint = new Point();
-Vec orig = new Vec();
-Vec dir = new Vec();
-Vec end = new Vec();
 
-Vec pup;
+
 
 
 void settings() {
@@ -56,10 +52,6 @@ void setup() {
    
   canvas = createGraphics(w, h/2, P3D);
   scene = new Scene(this, canvas);
-
-  scene.eyeFrame().removeMotionBinding(CENTER);
-  scene.eyeFrame().setClickBinding(LEFT, 1, "zoomOnPixel");
-  scene.eyeFrame().setClickBinding(CENTER, 1, "anchorFromPixel");
 
   stdCam = new StdCamera(scene);
   scene.setCamera(stdCam);
@@ -93,9 +85,9 @@ void setup() {
   auxScene2.setGridVisualHint(true);
   auxScene2.setRadius(150);
   auxScene2.showAll();
- 
   noLoop();
 }
+
 
 void mainDrawing(Scene s) {
   
@@ -150,9 +142,9 @@ void auxiliarDrawing(Scene s) {
   s.pg().popStyle();
 }
 
-void draw() {
+
+void draw() {  
   
-  //rotateY(angle); 
   surface.setTitle("Warnock algorithm demostration ");
   scene.beginDraw();
   
@@ -169,8 +161,15 @@ void draw() {
   auxiliarDrawing(auxScene2);
   auxScene2.endDraw();
   auxScene2.display();
-  angle += 0.01;
-  
+  drawText();  
+}
+
+void drawText() {
+  scene.beginScreenDrawing();
+  text( "S or s: " + "Activate interaction (noLoop)", 5, 20);
+  text( "u: " + "translateZ", 5, 35);
+  text( "v: " + "scale", 5, 50);
+  scene.endScreenDrawing();
 }
 
 void keyPressed() {
@@ -188,7 +187,7 @@ void keyPressed() {
       noLoop();
     }
     if (stop == true) {
-    loop();
+      loop();
     }
     if (key == 'r' || key == 'R') {
       
@@ -239,18 +238,5 @@ public class StdCamera extends Camera {
     if (isStandard())
       return 1.0f;
     return super.rescalingOrthoFactor();
-  }
-}
-
-
-void mouseClicked() {
-  if (mouseButton == RIGHT) {
-    pup = scene.pointUnderPixel(new Point(mouseX, mouseY));
-    System.out.println("pup: " + pup);
-    if ( pup != null ) {
-      screenPoint.set(mouseX, mouseY);
-      scene.camera().convertClickToLine(screenPoint, orig, dir);        
-      end = Vec.add(orig, Vec.multiply(dir, 1000.0f));
-    }
   }
 }
