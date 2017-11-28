@@ -1,6 +1,6 @@
 /**
  * Warnock algorithm with standard camera.
- * by Miguel Angel Ballen, Camilo Neiva, Jean Pierre Charalambos.
+ * by Miguel Angel Ballen, Camilo Neiva(?), Jean Pierre Charalambos.
  * 
  * A 'standard' Camera with fixed near and far planes.
  * 
@@ -28,6 +28,8 @@ int triangleAmount = 3;
 
 ArrayList<Integer> random_values;
 ArrayList<Integer> random_colors;
+ArrayList<Cube> cubes;
+ArrayList<Plane> planes;
 
 int w = 1280;
 int h = 760;
@@ -37,6 +39,7 @@ int h = 760;
 
 void settings() {
   size(w, h, P3D); 
+  
   
   random_values = new ArrayList<Integer>();
   random_colors = new ArrayList<Integer>();
@@ -85,7 +88,7 @@ void setup() {
   auxScene2.setGridVisualHint(true);
   auxScene2.setRadius(150);
   auxScene2.showAll();
-  noLoop();
+  
 }
 
 
@@ -111,6 +114,17 @@ void mainDrawing(Scene s) {
         p.vertex(   random_values.get(6), random_values.get(7),  random_values.get(8));
       p.endShape();
     }
+  /* p.beginShape();
+     p.strokeWeight(2);
+     p.noFill();
+     p.stroke(100, 0, 0);
+     p.beginShape(); 
+     p.vertex(0, 0, 0);
+     p.vertex( 0, 0, 0);
+     p.vertex( 100, 0 , 0);
+    p.endShape();
+    */
+    
     break;
   
   
@@ -127,6 +141,16 @@ void mainDrawing(Scene s) {
         p.vertex(   random_values.get(6),    random_values.get(7),  random_values.get(8));
       p.endShape();
     }
+  /*p.beginShape();
+     p.strokeWeight(2);
+     p.noFill();
+     p.stroke(100, 0, 0);
+     p.beginShape(); 
+     p.vertex(0, 0, 0);
+     p.vertex( 0, 0, 0);
+     p.vertex( 100, 0 , 0);
+    p.endShape();
+    */
     break;
   case INVISIBLE:
     break;
@@ -143,12 +167,16 @@ void auxiliarDrawing(Scene s) {
 }
 
 
+void Warnock(){
+}
+
 void draw() {  
   
   surface.setTitle("Warnock algorithm demostration ");
   scene.beginDraw();
-  
+ 
   mainDrawing(scene);
+  
   scene.endDraw();
   scene.display();
 
@@ -189,7 +217,7 @@ void keyPressed() {
     if (stop == true) {
       loop();
     }
-    if (key == 'r' || key == 'R') {
+    if (key == ' ' || key == 'l') {
       
     }
     
@@ -241,7 +269,7 @@ public class StdCamera extends Camera {
   }
 }
 
-boolean inside( ){
+boolean inside( Cube the_cube, Plane the_plane ){
   
   return false;
 }

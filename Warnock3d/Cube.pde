@@ -1,15 +1,14 @@
 class Cube{
-  PVector p1, p2, p3, p4, p5, p6, p7,p8;
   
-  Cube(PVector p1,PVector p2, PVector p3, PVector p4, PVector p5, PVector p6, PVector p7, PVector p8){
-   this.p1 = p1;
-   this.p1 = p1;
-   this.p1 = p1;
-   this.p1 = p1;
-   this.p1 = p1;
-   this.p1 = p1;
-   this.p1 = p1;
-   this.p1 = p1;   
+  Plane front, back, left, right, up, bottom;
+  
+  Cube(Plane p1, Plane p2, Plane p3, Plane p4, Plane p5, Plane p6){
+   this.front = p1;
+   this.back = p2;
+   this.left = p3;
+   this.right = p4;
+   this.up = p5;
+   this.bottom = p6;
   }
 
 }
