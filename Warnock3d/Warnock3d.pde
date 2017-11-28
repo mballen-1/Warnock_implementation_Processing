@@ -1,6 +1,6 @@
 /**
  * Warnock algorithm with standard camera.
- * by Miguel Angel Ballen, Camilo Neiva(?), Jean Pierre Charalambos.
+ * by Miguel Angel Ballen, Camilo Neiva, Jean Pierre Charalambos.
  * 
  * A 'standard' Camera with fixed near and far planes.
  * 
@@ -21,7 +21,7 @@ PGraphics canvas, auxCanvas1, auxCanvas2;
 
 StdCamera stdCam;
 Camera origCam;
-float angle = 0;
+int arist = 100;
 
 boolean stop = false;             // When to stop the scene and the random function
 int triangleAmount = 3;
@@ -92,6 +92,27 @@ void setup() {
 }
 
 
+void drawCube(Scene s, int l){
+     
+     PGraphics p = s.pg();
+     p.line(l, l, l, l, l, -l );
+     p.line(-l, l, l, -l, l, -l );
+     p.line(l, l, -l,-l, l, -l );
+     p.line(l, l, l, -l, l, l );
+     
+     p.line(-l, -l, -l, -l, -l, l );
+     p.line(l, -l, -l, l, -l, l );
+     p.line(-l, -l, l,l, -l, l );
+     p.line(-l, -l, -l, l, -l, -l );
+     
+     
+     p.line(l, l, l, l, -l, l );
+     p.line(-l, l, l, -l, -l, l );
+     p.line(l, l, -l, l, -l, -l );
+     p.line(-l, l, -l, -l, -l, -l );   
+  
+}
+
 void mainDrawing(Scene s) {
   
   PGraphics p = s.pg();
@@ -114,16 +135,10 @@ void mainDrawing(Scene s) {
         p.vertex(   random_values.get(6), random_values.get(7),  random_values.get(8));
       p.endShape();
     }
-  /* p.beginShape();
-     p.strokeWeight(2);
-     p.noFill();
-     p.stroke(100, 0, 0);
-     p.beginShape(); 
-     p.vertex(0, 0, 0);
-     p.vertex( 0, 0, 0);
-     p.vertex( 100, 0 , 0);
-    p.endShape();
-    */
+   
+    drawCube(s, arist);
+    drawCube(s, arist/2);
+    
     
     break;
   
@@ -139,20 +154,14 @@ void mainDrawing(Scene s) {
         p.vertex(random_values.get(0), random_values.get(1), random_values.get(2));
         p.vertex( random_values.get(3), random_values.get(4), random_values.get(5));
         p.vertex(   random_values.get(6),    random_values.get(7),  random_values.get(8));
-        
-        p.line(0,0,0, 100,100,100);
       p.endShape();
     }
-  /*p.beginShape();
-     p.strokeWeight(2);
-     p.noFill();
-     p.stroke(100, 0, 0);
-     p.beginShape(); 
-     p.vertex(0, 0, 0);
-     p.vertex( 0, 0, 0);
-     p.vertex( 100, 0 , 0);
+    p.beginShape();
+        p.vertex(255, 255, 255);
+        p.vertex(255, 255, -255);
+        p.vertex(-255, 255, -255);
     p.endShape();
-    */
+    
     break;
   case INVISIBLE:
     break;
