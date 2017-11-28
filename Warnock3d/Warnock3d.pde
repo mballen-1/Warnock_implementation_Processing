@@ -139,6 +139,8 @@ void mainDrawing(Scene s) {
         p.vertex(random_values.get(0), random_values.get(1), random_values.get(2));
         p.vertex( random_values.get(3), random_values.get(4), random_values.get(5));
         p.vertex(   random_values.get(6),    random_values.get(7),  random_values.get(8));
+        
+        p.line(0,0,0, 100,100,100);
       p.endShape();
     }
   /*p.beginShape();
